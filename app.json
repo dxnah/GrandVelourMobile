@@ -1,29 +1,48 @@
 {
   "expo": {
-    "name": "GrandVelourMobile",
-    "slug": "GrandVelourMobile",
+    "name": "Grand Velour",
+    "slug": "grand-velour-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
+      "backgroundColor": "#0d0d0d"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+        "backgroundColor": "#0d0d0d"
+      },
+      "package": "com.grandvelour.hotel",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "ios": {
+      "bundleIdentifier": "com.grandvelour.hotel"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Grand Velour needs access to your photos to set a profile picture.",
+          "cameraPermission": "Grand Velour needs camera access to take a profile picture."
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      "expo-font",
+      "expo-web-browser"
+    ],
+    "scheme": "grandvelour",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "af7b534a-72f2-4b99-a883-f8b4fd33216e"
+      }
     }
   }
 }
