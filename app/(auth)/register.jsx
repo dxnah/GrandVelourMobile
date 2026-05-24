@@ -36,7 +36,7 @@ export default function RegisterScreen() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await registerUser({ first_name: form.first_name, last_name: form.last_name, email: form.email, password: form.password });
+      await registerUser({ first_name: form.first_name, last_name: form.last_name, email: form.email, password: form.password, password2: form.confirmPassword });
       setRegistered(true);
     } catch (err) {
       const msg = err.response?.data?.error || 'Registration failed. Please try again.';
