@@ -1,13 +1,11 @@
 // Change this to your Django server's IP when testing on a real phone
-// localhost won't work on a physical device — use your PC's local IP
-// e.g., 'http://192.168.1.10:8000'
-export const BASE_URL = 'http://192.168.0.104:8000';
+export const BASE_URL = 'http://192.168.1.178:8000';
 
 export const ENDPOINTS = {
   // Auth
   LOGIN:           '/api/v1/user/login/',
   REGISTER:        '/api/v1/user/register/',
-  ACTIVATE:        '/api/v1/user/activate',      // + /{uid}/{token}/
+  ACTIVATE:        '/api/v1/user/activate',
   RESEND:          '/api/v1/user/resend-activation/',
   PROFILE:         '/api/v1/user/profile/',
 
