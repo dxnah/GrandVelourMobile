@@ -6,10 +6,14 @@ import { useAuth } from '../../hooks/useAuth';
 import SectionHeader from '../../components/ui/SectionHeader';
 
 const features = [
-  { icon: '🍽️', title: 'Fine Dining',    desc: 'Award-winning restaurant' },
-  { icon: '💆', title: 'Spa & Wellness', desc: 'Rejuvenate your body' },
-  { icon: '🏊', title: 'Infinity Pool',  desc: 'Rooftop with panoramic views' },
-  { icon: '🏋️', title: 'Fitness Center', desc: 'State-of-the-art equipment' },
+  { icon: '🍽️', title: 'Fine Dining',          desc: 'Award-winning restaurant on-site',      slug: 'fine-dining' },
+  { icon: '💆', title: 'Spa & Wellness',        desc: 'Rejuvenate your mind and body',         slug: 'spa-wellness' },
+  { icon: '🏊', title: 'Infinity Pool',         desc: 'Rooftop pool with panoramic views',     slug: 'infinity-pool' },
+  { icon: '🚗', title: 'Valet Parking',         desc: 'Complimentary for all guests',          slug: 'valet-parking' },
+  { icon: '🏋️', title: 'Gym / Fitness Center', desc: 'State-of-the-art exercise facilities',  slug: 'gym' },
+  { icon: '🍸', title: 'Bar / Lounge',          desc: 'Premium drinks and social area',        slug: 'bar-lounge' },
+  { icon: '💼', title: 'Conference Room',       desc: 'For meetings and seminars',             slug: 'conference-room' },
+  { icon: '🎉', title: 'Function Hall',         desc: 'For weddings, birthdays, and events',  slug: 'function-hall' },
 ];
 
 export default function HomeScreen() {
@@ -38,36 +42,26 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      {/* Features */}
+      {/* Amenities */}
       <View style={styles.section}>
         <SectionHeader title="Hotel Amenities" />
         <View style={styles.featuresGrid}>
           {features.map((f, i) => (
-            <View key={i} style={styles.featureCard}>
+            <TouchableOpacity
+              key={i}
+              style={styles.featureCard}
+              onPress={() => router.push(`/(tabs)/amenity/${f.slug}`)}
+              activeOpacity={0.75}
+            >
               <Text style={styles.featureIcon}>{f.icon}</Text>
               <Text style={styles.featureTitle}>{f.title}</Text>
               <Text style={styles.featureDesc}>{f.desc}</Text>
-            </View>
+              <Text style={styles.featureLearn}>LEARN MORE →</Text>
+            </TouchableOpacity>
           ))}
         </View>
       </View>
 
-      {/* Quick Actions */}
-      <View style={styles.section}>
-        <SectionHeader title="Quick Actions" />
-        <TouchableOpacity style={styles.actionRow} onPress={() => router.push('/(tabs)/bookings')}>
-          <Text style={styles.actionText}>View My Bookings</Text>
-          <Text style={styles.actionArrow}>→</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.actionRow} onPress={() => router.push('/(tabs)/chatbot')}>
-          <Text style={styles.actionText}>Chat with Concierge</Text>
-          <Text style={styles.actionArrow}>→</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.actionRow} onPress={() => router.push('/(tabs)/profile')}>
-          <Text style={styles.actionText}>Manage Profile</Text>
-          <Text style={styles.actionArrow}>→</Text>
-        </TouchableOpacity>
-      </View>
       <View style={{ height: 32 }} />
     </ScrollView>
   );
@@ -89,8 +83,6 @@ const styles = StyleSheet.create({
   featureCard:  { width: '47%', backgroundColor: Colors.card, padding: 20, borderWidth: 1, borderColor: Colors.border },
   featureIcon:  { fontSize: 28, marginBottom: 10 },
   featureTitle: { fontFamily: 'CormorantGaramond_400Regular', fontSize: 18, color: Colors.textPrimary, marginBottom: 4 },
-  featureDesc:  { fontFamily: 'Jost_300Light', fontSize: 11, color: Colors.textMuted, lineHeight: 16 },
-  actionRow:    { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 18, borderBottomWidth: 1, borderBottomColor: Colors.border },
-  actionText:   { fontFamily: 'Jost_400Regular', fontSize: 13, color: Colors.textPrimary, letterSpacing: 1 },
-  actionArrow:  { color: Colors.gold, fontSize: 18 },
+  featureDesc:  { fontFamily: 'Jost_300Light', fontSize: 11, color: Colors.textMuted, lineHeight: 16, marginBottom: 12 },
+  featureLearn: { fontFamily: 'Jost_400Regular', fontSize: 9, letterSpacing: 2, color: Colors.gold },
 });
