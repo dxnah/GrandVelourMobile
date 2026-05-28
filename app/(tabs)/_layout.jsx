@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
-import { Feather } from '@expo/vector-icons';
 
 export default function TabsLayout() {
   return (
@@ -8,27 +8,27 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#111009',
+          backgroundColor: Colors.background,
           borderTopColor: Colors.border,
           borderTopWidth: 1,
-          height: 64,
-          paddingBottom: 10,
+          height: 60,
+          paddingBottom: 8,
         },
-        tabBarActiveTintColor:   Colors.gold,
+        tabBarActiveTintColor: Colors.gold,
         tabBarInactiveTintColor: Colors.textMuted,
         tabBarLabelStyle: {
           fontFamily: 'Jost_400Regular',
           fontSize: 10,
           letterSpacing: 1,
-          textTransform: 'uppercase',
         },
       }}
     >
-      <Tabs.Screen name="home"     options={{ title: 'Home',     tabBarIcon: ({ color }) => <Feather name="home"        size={20} color={color} /> }} />
-      <Tabs.Screen name="rooms"    options={{ title: 'Rooms',    tabBarIcon: ({ color }) => <Feather name="grid"        size={20} color={color} /> }} />
-      <Tabs.Screen name="bookings" options={{ title: 'Bookings', tabBarIcon: ({ color }) => <Feather name="calendar"    size={20} color={color} /> }} />
-      <Tabs.Screen name="chatbot"  options={{ title: 'Concierge',tabBarIcon: ({ color }) => <Feather name="message-circle" size={20} color={color} /> }} />
-      <Tabs.Screen name="profile"  options={{ title: 'Profile',  tabBarIcon: ({ color }) => <Feather name="user"        size={20} color={color} /> }} />
+      <Tabs.Screen name="home" options={{ title: 'HOME', tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} /> }} />
+      <Tabs.Screen name="rooms" options={{ title: 'ROOMS', tabBarIcon: ({ color, size }) => <Ionicons name="bed-outline" size={size} color={color} /> }} />
+      <Tabs.Screen name="bookings" options={{ title: 'BOOKINGS', tabBarIcon: ({ color, size }) => <Ionicons name="calendar-outline" size={size} color={color} /> }} />
+      <Tabs.Screen name="chatbot" options={{ title: 'CONCIER...', tabBarIcon: ({ color, size }) => <Ionicons name="chatbubble-outline" size={size} color={color} /> }} />
+      <Tabs.Screen name="profile" options={{ title: 'PROFILE', tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} /> }} />
+      <Tabs.Screen name="amenity/[slug]" options={{ href: null }} />
     </Tabs>
   );
 }
