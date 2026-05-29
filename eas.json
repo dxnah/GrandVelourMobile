@@ -1,14 +1,12 @@
 {
-    "cli": {
-      "version": ">= 16.0.0",
-      "appVersionSource": "local"
-    },
-    "build": {
-      "preview": {
-        "android": {
-          "buildType": "apk"
-        }
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
       },
-      "production": {}
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://grandvelour.onrender.com"
+      }
     }
   }
+}
