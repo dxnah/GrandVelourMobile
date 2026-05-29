@@ -1,7 +1,7 @@
 // Change this to your Django server's IP when testing on a real phone
 // localhost won't work on a physical device — use your PC's local IP
 // e.g., 'http://192.168.1.10:8000'
-export const BASE_URL = 'http://192.168.0.104:8000';
+export const BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'https://grandvelour.onrender.com';
 
 export const ENDPOINTS = {
   // Auth

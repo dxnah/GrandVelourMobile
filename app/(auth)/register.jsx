@@ -10,19 +10,27 @@ import GoldButton from '../../components/ui/GoldButton';
 
 export default function RegisterScreen() {
   const router = useRouter();
-  const [form, setForm] = useState({ first_name: '', last_name: '', email: '', password: '', confirmPassword: '' });
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors]   = useState({});
+  const [form, setForm] = useState({
+    first_name:      '',
+    last_name:       '',
+    email:           '',
+    password:        '',
+    confirmPassword: '',
+    phone:           '',
+    address:         '',
+  });
+  const [loading,    setLoading]    = useState(false);
+  const [errors,     setErrors]     = useState({});
   const [registered, setRegistered] = useState(false);
 
   const update = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
   const validate = () => {
     const e = {};
-    const fn  = validateRequired(form.first_name, 'First name');
-    const ln  = validateRequired(form.last_name, 'Last name');
-    const em  = validateEmail(form.email);
-    const pw  = validatePassword(form.password);
+    const fn = validateRequired(form.first_name, 'First name');
+    const ln = validateRequired(form.last_name, 'Last name');
+    const em = validateEmail(form.email);
+    const pw = validatePassword(form.password);
     if (fn) e.first_name = fn;
     if (ln) e.last_name  = ln;
     if (em) e.email      = em;
@@ -36,10 +44,21 @@ export default function RegisterScreen() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await registerUser({ first_name: form.first_name, last_name: form.last_name, email: form.email, password: form.password, password2: form.confirmPassword });
+      await registerUser({
+        first_name: form.first_name,
+        last_name:  form.last_name,
+        email:      form.email,
+        password:   form.password,
+        password2:  form.confirmPassword,
+        phone:      form.phone,
+        address:    form.address,
+      });
       setRegistered(true);
     } catch (err) {
-      const msg = err.response?.data?.error || 'Registration failed. Please try again.';
+      const data = err.response?.data;
+      const msg  = data
+        ? Object.values(data).flat().join(' ')
+        : 'Registration failed. Please try again.';
       Toast.show({ type: 'error', text1: 'Registration failed', text2: msg });
     } finally {
       setLoading(false);
@@ -52,7 +71,8 @@ export default function RegisterScreen() {
         <Text style={styles.successIcon}>✉️</Text>
         <Text style={styles.successTitle}>Check Your Email</Text>
         <Text style={styles.successText}>
-          We sent an activation link to{'\n'}<Text style={{ color: Colors.gold }}>{form.email}</Text>{'\n\n'}
+          We sent an activation link to{'\n'}
+          <Text style={{ color: Colors.gold }}>{form.email}</Text>{'\n\n'}
           Click the link in the email to activate your account before logging in.
         </Text>
         <GoldButton title="Back to Login" onPress={() => router.replace('/(auth)/login')} />
@@ -70,13 +90,19 @@ export default function RegisterScreen() {
         <Text style={styles.title}>Create Account</Text>
         <Text style={styles.subtitle}>Join Grand Velour for an exclusive experience.</Text>
 
-        <VelourInput label="First Name" value={form.first_name} onChangeText={v => update('first_name', v)} error={errors.first_name} />
-        <VelourInput label="Last Name"  value={form.last_name}  onChangeText={v => update('last_name', v)}  error={errors.last_name} />
-        <VelourInput label="Email Address" value={form.email} onChangeText={v => update('email', v)} keyboardType="email-address" autoCapitalize="none" error={errors.email} />
-        <VelourInput label="Password" value={form.password} onChangeText={v => update('password', v)} secureTextEntry error={errors.password} />
+        <VelourInput label="First Name"    value={form.first_name}      onChangeText={v => update('first_name', v)}      error={errors.first_name} />
+        <VelourInput label="Last Name"     value={form.last_name}       onChangeText={v => update('last_name', v)}       error={errors.last_name} />
+        <VelourInput label="Phone Number"  value={form.phone}           onChangeText={v => update('phone', v)}           keyboardType="phone-pad" />
+        <VelourInput label="Address"       value={form.address}         onChangeText={v => update('address', v)} />
+        <VelourInput label="Email Address" value={form.email}           onChangeText={v => update('email', v)}           keyboardType="email-address" autoCapitalize="none" error={errors.email} />
+        <VelourInput label="Password"      value={form.password}        onChangeText={v => update('password', v)}        secureTextEntry error={errors.password} />
         <VelourInput label="Confirm Password" value={form.confirmPassword} onChangeText={v => update('confirmPassword', v)} secureTextEntry error={errors.confirmPassword} />
 
-        <GoldButton title={loading ? 'Creating Account...' : 'Create Account'} onPress={handleRegister} disabled={loading} />
+        <GoldButton
+          title={loading ? 'Creating Account...' : 'Create Account'}
+          onPress={handleRegister}
+          disabled={loading}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );

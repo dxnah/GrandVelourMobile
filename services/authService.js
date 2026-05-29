@@ -4,11 +4,7 @@ import { saveToken, saveUserData, removeToken } from '../utils/storage';
 
 export const loginUser = async (email, password) => {
   const res = await api.post(ENDPOINTS.LOGIN, { email, password });
-  if (res.data.access) {
-    await saveToken(res.data.access);
-    await saveUserData(res.data.user);
-  }
-  return res.data;
+  return res.data; 
 };
 
 export const registerUser = async (userData) => {

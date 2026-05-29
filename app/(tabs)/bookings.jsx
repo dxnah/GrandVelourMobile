@@ -7,7 +7,7 @@ import GoldButton from '../../components/ui/GoldButton';
 import SectionHeader from '../../components/ui/SectionHeader';
 
 export default function BookingsScreen() {
-  const { bookings, loading, error, cancelBooking } = useBookings();
+  const { bookings, loading, error, cancelBooking, refetch } = useBookings();
 
   const handleCancel = (id) => {
     Alert.alert('Cancel Booking', 'Are you sure you want to cancel this booking?', [
@@ -30,7 +30,7 @@ export default function BookingsScreen() {
         data={bookings}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <BookingCard booking={item} onCancel={() => handleCancel(item.id)} />
+          <BookingCard booking={item} onCancel={() => handleCancel(item.id)} onRescheduled={() => refetch()} />
         )}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}

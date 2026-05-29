@@ -12,11 +12,11 @@ export const createBooking = async (bookingData) => {
 };
 
 export const cancelBooking = async (id) => {
-  const res = await api.post(ENDPOINTS.CANCEL_BOOKING(id));
+  const res = await api.patch(ENDPOINTS.CANCEL_BOOKING(id));
   return res.data;
 };
 
 export const rescheduleBooking = async (id, data) => {
-  const res = await api.post(ENDPOINTS.RESCHEDULE(id), data);
+  const res = await api.patch(ENDPOINTS.RESCHEDULE(id), data);
   return res.data;
 };

@@ -29,30 +29,30 @@ export default function LoginScreen() {
   };
 
   const handleLogin = async () => {
-    if (!validate()) return;
-    setLoading(true);
-    try {
-      const data = await loginUser(email, password);
-      if (data.access) {
-        login(data.user, data.access);
-        Toast.show({ type: 'success', text1: 'Welcome back!', text2: `Hello, ${data.user.first_name}` });
-        if (data.user.is_staff) {
-          router.replace('/(admin)/dashboard');
-        } else {
-          router.replace('/(tabs)/home');
-        }
-      }
-    } catch (err) {
-      const msg = err.response?.data?.error || 'Invalid credentials. Please try again.';
-      if (err.response?.status === 403 && err.response?.data?.not_activated) {
-        Toast.show({ type: 'error', text1: 'Account not activated', text2: 'Check your email for the activation link.' });
-      } else {
-        Toast.show({ type: 'error', text1: 'Login failed', text2: msg });
-      }
-    } finally {
-      setLoading(false);
+  if (!validate()) return;
+  setLoading(true);
+  try {
+    const data = await loginUser(email, password);
+    await login(data.user, data.access, data.refresh);
+    
+    Toast.show({ type: 'success', text1: 'Welcome back!', text2: `Hello, ${data.user.first_name}` });
+    
+    if (data.user.is_staff) {
+      router.replace('/(admin)/dashboard');
+    } else {
+      router.replace('/(tabs)/home');
     }
-  };
+  } catch (err) {
+    const msg = err.response?.data?.error || 'Invalid credentials. Please try again.';
+    if (err.response?.status === 403 && err.response?.data?.not_activated) {
+      Toast.show({ type: 'error', text1: 'Account not activated', text2: 'Check your email for the activation link.' });
+    } else {
+      Toast.show({ type: 'error', text1: 'Login failed', text2: msg });
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
